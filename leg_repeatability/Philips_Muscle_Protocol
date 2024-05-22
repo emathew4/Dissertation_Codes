@@ -1,0 +1,89 @@
+**Use philips_dcm2nii.m to read the dicoms and create niftis**
+
+NOTE: If data needs to be resized at any step, resize the data BEFORE converting to single (to avoid numerical imprecision)
+
+
+DIPY preprocessing, topup/applytopup, Mathematica Reg, Slicer Seg (T21/T22 masks, anatomical seg), Dipy mapping
+
+%% Preprocessing
+
+1. Copy all data scans to new folder and rename. Combine b0 images (don't forget to set PixelDimension (niftiinfo) to be the same as original b0)
+	Create acqparams.txt 		(Copy included in Desktop/Philips_Data folder)
+	Use fulldki_processing_topup.m
+	Don't forget to change name of .niis it creates to include 1 or 2 (for test/retest)
+
+2. Add 0 to bval.bval, add [0;0;0] to bvec.bvec; check sizes of both and of index.txt to make sure everything matches (should be numDirs + 1 since 1 b0 image)
+
+
+3. Run topup (for questions/help refer to fulldki_processing_topup.m) (~30 min)
+
+   	'/usr/local/fsl/bin/topup --imain=',b0,' --datain=',acq,' --config=b02b0.cnf --out=',topout,' 	--fout=',topupfmap,' --iout=',unwarpedb0
+
+
+	(DONT FORGET TO SWITCH LEFT TO RIGHT FOR BELOW); Dont need --iout, but can sanity check
+
+	/usr/local/fsl/bin/topup --imain=fullb0_left.nii --datain=topup_acqparams.txt --config=b02b0.cnf --out=topup1_left --iout=topup_unwarped 
+
+
+	FOR ApplyTopup
+
+	applytopup --imain=proc1_left.nii --datain=topup_acqparams.txt --inindex=1 --topup=topup1_left --out=topupped_left --method=jac	
+		
+
+4. Run DIPY preprocessing on dki_withb0.nii while topup is running (DIPY protocol for help)
+
+5a. slice matching data using Mango to view t2s
+
+5b. Volume masking of processed_b0s (1 and 2) in Slicer for eddy and Dipy 
+	don't need bone/skin, but don't waste time if its included
+		i.e. err on side of including voxel rather than excluding if insure
+
+	Threshold -> Islands -> Paint/Erase -> Islands? -> Mask (fill inside and outside with 1/0)
+	
+	Use Grow from Seeds, not thresholding; easier
+
+
+
+6. Run Eddy with binary mask of b0
+
+   	eddy --imain=processed_data.nii --mask=mask_ofb0 --acqp=acq --index=index --bvecs=bvec --bvals=bval --topup=topout_name --repol --out=eddyout --slm=linear (unless can figure out a way for not halfsphere) ?--mb=3
+
+DONT USE EDDY; USE MATHEMATICA REGISTRATION INSTEAD (QMRITools). SEE 11
+
+7. Anatomical Segmentation of T2 in Slicer (Muscle groups for scan 1 and 2 for all slices)
+
+	Try to be consistent for each muscle group since registration based off of it
+
+
+9. Create dipy output folder; Copy topupped_dki.nii and segmentation mask to folder;
+	Also copy bval.bval and bvec.bvec, but change names to match dki
+
+10. Run Dipy on correcteddwi through terminal (Dipy_Protocol)
+
+
+
+%% Registration
+
+11. AutoRegistration.nb to register dki scans to themselves, dki1 to t1, dki2 to t2, t2 to t1 (and therefore dki2 to t1)
+		Add t2 to t1 transformsplit for segmentation masks
+
+	*** Use PhilipsTesting.nb as example ***
+
+	For dki to self and dki to anatomical:
+	
+	RegisterDiffusionDataSplit[{dki,dkivox},{t2,t2vox},DeleteTempDirectory -> False, OutputTransformation->True);
+		Other params can vary; iter and numsamples probably most important
+
+	For t2 to t1 (and dki to t1) Don't forget to slice match! (Use a couple of extra slices on either side for help with registration, but only use slice matched slices for analysis
+	
+	RegisterDataTransformSplit[{t21[[s1_start;;s1_end]],t21mask[[s1_start;;s1_end]],t21vox},{t22[[s2_start;;s2_end]],t22mask[[s2_start;;s2_end]],t22vox},{dki2[[s2_start;;s2_end]],dki2vox},DeleteTempDirectory ->False, MethodReg ->{"affine"}];
+
+
+
+%% Analysis/Statistics
+
+11. Create analysis folder; copy b0masks and dkipars.mat for both scans into analysis folder
+
+12. Create muscle masks folder; copy muscle group masks (l and r and first vs second)
+
+13. Use extract_vals to get all values from within muscle group (using pars and mask)
