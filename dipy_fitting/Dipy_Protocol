@@ -1,0 +1,31 @@
+1. Open Terminal, activate venv
+
+	source /Users/ethanmathew/PycharmProjects/dipytesting/venv/bin/activate
+
+2. Start python, add project path
+	
+	python3.9
+
+	import sys; sys.path.extend(['/Users/ethanmathew/PycharmProjects/dipytesting'])
+
+	# can see necessary commands at top of Python Console in Pycharm if needed
+
+3. Import dki_runner, set vars, run analysis
+
+	# Same as you would in Pycharm
+
+	import dki_runner
+
+	base='full/path/to/base/'	# include slash at end (or modify dki_runner)
+	
+	output='full/path/to/output/folder
+
+Then choose from 
+	
+	dki_runner.run_dipy(base,output,'both')		# no preprocessing, just analysis
+	dki_runner.run_dipy(base,output,'',False)		# just preprocessing, no analysis
+	dki_runner.run_dipy(base,output,'both',False)	# preprocessing, then analysis
+
+NB: for Philips, the data comes as int16. Can save the output data as int16 to keep standard, or can save the output as float32, but check to make sure data range of saved output hasn't changed
+
+	
