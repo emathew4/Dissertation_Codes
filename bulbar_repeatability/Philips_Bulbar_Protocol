@@ -1,0 +1,61 @@
+**Use philips_dcm2nii.m to read the dicoms and create niftis**
+
+NOTE: If data needs to be resized at any step, resize the data BEFORE converting to single (to avoid numerical imprecision)
+
+DIPY preprocessing, topup/eddy (might need to create mask for tongue before running eddy since BET probably won't be right), Slicer Seg (T21/T22 whole masks), DIPY mapping
+
+1. Copy all data scans to new folder and rename. 
+	
+Use bulbar_processing_topup.m
+	Don't forget to change name of .niis it creates to include 1 or 2 (for test/retest)
+
+Use applytopup once done
+	
+	applytopup --imain=dti1_withb0.nii --datain=topup_acqparams.txt --inindex=1 --topup=topup_out_full --out=topupped_dti --method=jac
+
+
+2. Run bet on resb0.nii 
+
+	bet unwarpedb0_full.nii betb0 -m
+
+3. Run Eddy with binary mask of b0
+
+	eddy --imain=topupped_dti --mask=betb0_mask --acqp=topup_acqparams.txt --index=index.txt --bvecs=dki_out/bvec.bvec --bvals=dki_out/bval.bval --topup=topup_out_full --out=eddyout/eddyout
+
+	Visually check once done!
+
+4. Create anatomical mask using for ROI calculations (Slicer) (don't forget to rotate saved mask if needed)
+
+
+5. Run DIPY (preprocessing) on eddy corrected data
+
+6. Run SSIM calculation (for motion QA) on denoised data
+	
+	bulbar_checkmotion.m
+
+	Visually check volumes marked as possible motion; decide whether to remove or not before 	fitting
+
+7. Run DIPY (fitting)
+
+
+8. Register preprocessed b0 to t1ax(:,:,4:23) (should always be this, but check coordinates with 	Slicer, and might need to adjust to exclude the empty slices after processing)
+
+	Use FSL and apply inverse transform to anatomical mask
+
+	t1ax(:,:,11:22) -> proc(:,:,8:19,1)
+
+
+	flirt -in b0slices.nii -ref t1slices.nii -out b0reg.nii.gz -omat b0_to_t1_mat
+
+	convert_xfm -omat t1_to_b0_mat -inverse b0_to_t1_mat
+
+	flirt -in maskslices.nii -ref b0slices.nii -out maskreg.nii -init t1_to_b0_mat 	-applyxfm 	-interp nearestneighbour
+
+	
+	Can also use InvertXFM and ApplyXFM GUIs instead
+
+
+9. Edit following code if needed from Repeatability Analysis/helpers (as well as extract_all_vals_masked.m and possibly extract_vals.m (cutoff values if wildly different)), then run for ws_cv calculation
+
+[valout2,stdout2]=get_all_means;
+[cvs2,std_err2,cv_table2]=within_subj_cv_calulator_segpar(valout2);
