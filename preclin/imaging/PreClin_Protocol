@@ -1,0 +1,37 @@
+# SNR of b0 image should be (at least) 70
+
+# Don't forget to run "brukerhelper.m" on DKI to get .bval, .bvec, and .json files
+
+# Create acqparams.txt
+# Use MATLAB to create index.txt
+
+indextxt=ones(size(dki,4),1);
+dlmwrite('index.txt',indextxt,'delimiter',' ');
+
+
+
+1. Shift DKI data by $PVM_EncPftOverscans1 from method file (if using partial FT accel - NOT NEEDED ANYMORE)
+
+	shifteddki=circshift(dki,NumOverscans,PEdir);	# 1 or 2 depending on if AP or LR
+
+
+2. Slicer of anatomical for segmentation (Use GrowFromSeeds)
+
+3. Use "create_muscmask.m" to create mask 		# don't forget to change imresize3 line if needed
+
+4. FUGUE for susceptibility
+
+	# just use raw fieldmap file from Bruker (don't worry about separating or about unwrapping/multiplying by 6.28)
+	# 1 is phase, 2 is magnitude
+
+	fugue -i dki.nii --dwell=.004 --loadfmap=fuguemap.nii -u fugueout --unwarpdir=x-
+
+
+5. Eddy for Motion/Geometric Distortion	# USE MATHEMATICA
+
+	eddy --imain=dki.nii --mask=mask.nii --acqp=acqparams.txt --index=index.txt --bvecs=dki.bvec --bvals=dki.bval --repol --out=output/corrected_dwi.nii
+		
+
+	Check data after, might need to remove slices (depends on dataset)
+
+6. Dipy on corrected_dwi along with mask.nii

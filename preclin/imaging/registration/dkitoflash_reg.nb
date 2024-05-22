@@ -1,0 +1,303 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     11741,        295]
+NotebookOptionsPosition[     10526,        268]
+NotebookOutlinePosition[     10964,        285]
+CellTagsIndexPosition[     10921,        282]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"<<", "QMRITools`"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"animal", " ", "=", " ", 
+  "\"\<EM_DKI_Gesf_Repeatability_R00\>\""}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"flashfoldernum", " ", "=", " ", "\"\<5\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"difffoldernum", " ", "=", " ", "\"\<7\>\""}], ";"}]}], "Input",
+ CellChangeTimes->{{3.8683640107750053`*^9, 3.868364037215477*^9}, {
+   3.868364120202958*^9, 3.86836413869909*^9}, 3.868364493871867*^9, 
+   3.868364677274909*^9, 3.868364756634289*^9, {3.86836479794573*^9, 
+   3.86836480312542*^9}, {3.868364876283869*^9, 3.868364880285363*^9}, 
+   3.8683649431944227`*^9, 3.868364980724001*^9, 3.8683650403648853`*^9, 
+   3.868365110385809*^9, 3.868365162001607*^9, 3.868365219047172*^9, 
+   3.8683652684485807`*^9, 3.8683653228750134`*^9, 3.8683653908386173`*^9, 
+   3.8683654510170383`*^9, {3.868365708351789*^9, 3.8683657266464663`*^9}, 
+   3.8683657831445293`*^9, {3.868365835129942*^9, 3.868365841421513*^9}, 
+   3.868365882551256*^9, 3.8683659564351397`*^9, {3.868365997000985*^9, 
+   3.868366001185974*^9}, 3.868366047058638*^9, 3.868366098478353*^9, {
+   3.868366149050192*^9, 3.8683661519663467`*^9}, 3.868366189875826*^9, 
+   3.868366237705968*^9, 3.868366284087469*^9, 3.868366329168991*^9, 
+   3.8683663733479137`*^9, 3.868366415339429*^9, 3.868366493377201*^9, 
+   3.868366539390853*^9, 3.868366582633697*^9, 3.868366625492193*^9, 
+   3.86836666948918*^9, 3.868366712800988*^9, 3.868366757146201*^9, 
+   3.868366803116767*^9, {3.868366882701315*^9, 3.868366897233914*^9}, 
+   3.868366941502376*^9, 3.868366986294197*^9, 3.868367028207006*^9, 
+   3.868367125667984*^9, 3.868367165222945*^9, 3.86836720997956*^9, 
+   3.868367253869203*^9, 3.868367406455844*^9, 3.868367456413877*^9, 
+   3.868369365455426*^9, 3.868369870950212*^9, 3.868369924875389*^9, {
+   3.868369962533966*^9, 3.868369965094952*^9}, {3.868370055001832*^9, 
+   3.8683700581332827`*^9}, {3.8683700936203613`*^9, 3.8683701161066923`*^9}, 
+   3.8683701670227213`*^9, 3.868370218780074*^9, 3.868370270171727*^9, {
+   3.868370385039631*^9, 3.868370403740994*^9}, 3.868370456213821*^9, 
+   3.86837049023882*^9, 3.868370535130569*^9, 3.8683705758002577`*^9, 
+   3.8683706277877073`*^9, 3.868370679064804*^9, 3.868370720977457*^9, 
+   3.868370762527981*^9, {3.868370823358903*^9, 3.868370826202077*^9}, {
+   3.86837085824897*^9, 3.868370894441951*^9}, 3.868370935441324*^9, {
+   3.8683709777691317`*^9, 3.868370981986882*^9}, 3.868371020643509*^9, 
+   3.8683710684837227`*^9, 3.8683711659238167`*^9, {3.868371225689303*^9, 
+   3.868371226734462*^9}, 3.8683712710088243`*^9, 3.868371316642894*^9, 
+   3.868371358857346*^9, 3.8683714037146397`*^9, 3.868371449492775*^9, 
+   3.868371494226575*^9, 3.868371550198183*^9, 3.868371596933062*^9, 
+   3.868371636507093*^9, 3.868371755235235*^9, {3.868371820710788*^9, 
+   3.8683718501841183`*^9}, {3.8683718988299828`*^9, 3.868371927969783*^9}, 
+   3.868371965303445*^9, 3.868372007266781*^9, 3.8683720531534843`*^9, 
+   3.868372092780534*^9, 3.868372139307382*^9, 3.868372183500963*^9, 
+   3.8683722278156147`*^9, 3.8683862908698807`*^9, 3.868386552026222*^9, 
+   3.868387561016851*^9, 3.868387830794362*^9, {3.868388324919504*^9, 
+   3.8683883258814373`*^9}, 3.8727071211482058`*^9, 
+   3.877107205203248*^9},ExpressionUUID->"540fff44-c7ae-45ef-81f4-\
+3be97bba0cdb"],
+
+Cell[BoxData["\<\"EM_ALS_070122_R0285\"\>"], "Output",
+ CellChangeTimes->{3.868388332563552*^9},
+ CellLabel->
+  "8/1/22 17:18:52 \
+Out[2]=",ExpressionUUID->"d55e0b6b-4b08-470b-9241-209d748c5368"]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+  "basepath", "=", 
+   "\"\</Users/ethanmathew/Desktop/ALS_Preclin_2022/Protocol_Repeatability_\
+Testing/R0/\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"animalpath", " ", "=", " ", 
+   RowBox[{"basepath", "<>", "animal"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"flashpath", "=", 
+    RowBox[{
+    "animalpath", "<>", "\"\</\>\"", "<>", "flashfoldernum", "<>", 
+     "\"\</\>\"", "<>", "animal", "<>", "\"\<_\>\"", "<>", "flashfoldernum", 
+     "<>", "\"\<.nii\>\""}]}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"dkitodkipath", " ", "=", " ", 
+   RowBox[{
+   "animalpath", "<>", "\"\</\>\"", "<>", "difffoldernum", "<>", 
+    "\"\</dkitodki.nii\>\""}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"dkitoflashpath", " ", "=", " ", 
+   RowBox[{
+   "animalpath", "<>", "\"\</\>\"", "<>", "difffoldernum", "<>", 
+    "\"\</dkitoflash.nii\>\""}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.8771071952497396`*^9, 
+  3.8771071964645863`*^9}},ExpressionUUID->"fca6a035-4a86-4c9e-859b-\
+7581b6582d2f"],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"flash", ",", "flashvox"}], "}"}], "=", 
+     RowBox[{"ImportNii", "[", "flashpath", "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"flash", "=", 
+     RowBox[{"flash", "[", 
+      RowBox[{"[", 
+       RowBox[{"Range", "[", 
+        RowBox[{"2", ",", "16", ",", "2"}], "]"}], "]"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"dkitodki", ",", "dkivox"}], "}"}], "=", 
+     RowBox[{"ImportNii", "[", "dkitodkipath", "]"}]}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.868364054152533*^9, 3.868364067847805*^9}, 
+   3.868366239501892*^9},
+ CellLabel->
+  "8/1/22 17:18:52 \
+In[10]:=",ExpressionUUID->"721f61bd-f6ec-461c-ae68-66ffbfb09791"],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"flash", "=", 
+     RowBox[{"RescaleData", "[", 
+      RowBox[{"flash", ",", 
+       RowBox[{"Delete", "[", 
+        RowBox[{
+         RowBox[{"Dimensions", "[", "dkitodki", "]"}], ",", "2"}], "]"}]}], 
+      "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"flashvox", "=", "dkivox"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"For", "[", 
+     RowBox[{
+      RowBox[{"i", "=", "1"}], ",", 
+      RowBox[{"i", "<=", 
+       RowBox[{
+        RowBox[{"Dimensions", "[", "flash", "]"}], "[", 
+        RowBox[{"[", "1", "]"}], "]"}]}], ",", 
+      RowBox[{"i", "++"}], ",", 
+      RowBox[{
+       RowBox[{"flash", "[", 
+        RowBox[{"[", "i", "]"}], "]"}], "=", 
+       RowBox[{"Reverse", "/@", 
+        RowBox[{"flash", "[", 
+         RowBox[{"[", "i", "]"}], "]"}]}]}]}], "]"}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.868364076212376*^9, 3.8683640765038643`*^9}, {
+   3.8683641705950727`*^9, 3.868364171051434*^9}, 3.86836624137421*^9, {
+   3.868369260094088*^9, 3.868369275750856*^9}, {3.8683693588064613`*^9, 
+   3.8683693602101593`*^9}, {3.8683693923472433`*^9, 3.868369393744937*^9}},
+ CellLabel->
+  "8/1/22 17:18:53 \
+In[13]:=",ExpressionUUID->"e55d01a2-1967-4334-bdb6-67c8dd97b60e"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"dkitoflash", "=", 
+    RowBox[{"RegisterDataTransform", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"flash", ",", "flashvox"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"dkitodki", "[", 
+         RowBox[{"[", 
+          RowBox[{";;", ",", "1", ",", ";;", ",", ";;"}], "]"}], "]"}], ",", 
+        " ", "dkivox"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"dkitodki", ",", " ", "dkivox"}], "}"}], ",", 
+      RowBox[{"Iterations", "->", "250"}], ",", 
+      RowBox[{"NumberSamples", "->", "1500"}], ",", 
+      RowBox[{"DeleteTempDirectory", "->", "False"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.86836408851646*^9, 3.868364088660281*^9}, {
+  3.868364218587041*^9, 3.8683642241731367`*^9}, {3.86837077337533*^9, 
+  3.868370778913953*^9}},
+ CellLabel->
+  "8/1/22 17:19:10 \
+In[17]:=",ExpressionUUID->"df7367fa-17ed-469f-bc6a-99d61e688d7a"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{"For", "[", 
+    RowBox[{
+     RowBox[{"i", " ", "=", " ", "1"}], ",", 
+     RowBox[{"i", "<=", 
+      RowBox[{
+       RowBox[{"Dimensions", "[", 
+        RowBox[{"dkitoflash", "[", 
+         RowBox[{"[", "2", "]"}], "]"}], "]"}], "[", 
+       RowBox[{"[", "1", "]"}], "]"}]}], ",", 
+     RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"j", "=", "1"}], ",", 
+       RowBox[{"j", "<=", 
+        RowBox[{
+         RowBox[{"Dimensions", "[", 
+          RowBox[{"dkitoflash", "[", 
+           RowBox[{"[", "2", "]"}], "]"}], "]"}], "[", 
+         RowBox[{"[", "2", "]"}], "]"}]}], ",", 
+       RowBox[{"j", "++"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"dkitoflash", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "[", 
+         RowBox[{"[", 
+          RowBox[{"i", ",", "j"}], "]"}], "]"}], "=", 
+        RowBox[{"Reverse", " ", "/@", 
+         RowBox[{
+          RowBox[{"dkitoflash", "[", 
+           RowBox[{"[", "2", "]"}], "]"}], "[", 
+          RowBox[{"[", 
+           RowBox[{"i", ",", "j"}], "]"}], "]"}]}]}]}], "]"}]}], "]"}], ";"}],
+   "*)"}]], "Input",
+ CellChangeTimes->{{3.86836435245746*^9, 3.8683643546506653`*^9}},
+ CellLabel->
+  "8/1/22 12:51:40 \
+In[17]:=",ExpressionUUID->"917827a8-e7d9-4ef8-90ad-abb8aed7b4fe"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Export", "[", 
+     RowBox[{"dkitoflashpath", ",", 
+      RowBox[{"dkitoflash", "[", 
+       RowBox[{"[", "2", "]"}], "]"}], ",", "\"\<Nii\>\""}], "]"}], ";"}], 
+   "\[IndentingNewLine]", "animal"}]}]], "Input",
+ CellChangeTimes->{{3.8683641028182697`*^9, 3.868364107402441*^9}, {
+  3.868365005475851*^9, 3.868365018803999*^9}},
+ CellLabel->
+  "8/1/22 17:20:09 \
+In[22]:=",ExpressionUUID->"fef52f0f-2418-45c5-b362-b9cc22844db2"],
+
+Cell[BoxData["\<\"EM_ALS_070122_R0285\"\>"], "Output",
+ CellChangeTimes->{3.868388409943737*^9},
+ CellLabel->
+  "8/1/22 17:20:09 \
+Out[23]=",ExpressionUUID->"a9bf469c-67c7-4362-be1d-e9670521a48b"]
+}, Open  ]]
+},
+WindowSize->{808, 666},
+WindowMargins->{{259, Automatic}, {Automatic, 0}},
+TaggingRules-><|"TryRealOnly" -> False|>,
+FrontEndVersion->"13.0 for Mac OS X x86 (64-bit) (December 2, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"6be1d580-77e5-4ab9-bdb2-1332589eb402"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 3440, 53, 136, "Input",ExpressionUUID->"540fff44-c7ae-45ef-81f4-3be97bba0cdb"],
+Cell[4023, 77, 195, 4, 45, "Output",ExpressionUUID->"d55e0b6b-4b08-470b-9241-209d748c5368"]
+}, Open  ]],
+Cell[4233, 84, 1062, 28, 178, "Input",ExpressionUUID->"fca6a035-4a86-4c9e-859b-7581b6582d2f"],
+Cell[5298, 114, 811, 24, 105, "Input",ExpressionUUID->"721f61bd-f6ec-461c-ae68-66ffbfb09791"],
+Cell[6112, 140, 1288, 34, 105, "Input",ExpressionUUID->"e55d01a2-1967-4334-bdb6-67c8dd97b60e"],
+Cell[7403, 176, 965, 25, 84, "Input",ExpressionUUID->"df7367fa-17ed-469f-bc6a-99d61e688d7a"],
+Cell[8371, 203, 1381, 39, 84, "Input",ExpressionUUID->"917827a8-e7d9-4ef8-90ad-abb8aed7b4fe"],
+Cell[CellGroupData[{
+Cell[9777, 246, 534, 13, 105, "Input",ExpressionUUID->"fef52f0f-2418-45c5-b362-b9cc22844db2"],
+Cell[10314, 261, 196, 4, 45, "Output",ExpressionUUID->"a9bf469c-67c7-4362-be1d-e9670521a48b"]
+}, Open  ]]
+}
+]
+*)
+

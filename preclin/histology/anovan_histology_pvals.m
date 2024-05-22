@@ -1,0 +1,19 @@
+%load('anovan_histology.mat');
+% c = multcompare(stats2); % for posthoc tests and visualization
+[p2,tbl2,stats2]=anovan(comb_fibersize,{distype gender timepoint},'model',3,'varnames',{'Disease Status','Gender','Time'},'display','off');
+a=tbl2(:,1);
+a(:,2)=tbl2(:,7);
+a(1,2)={'Fiber Area'};
+[p2,tbl2,stats2]=anovan(comb_maxdiam,{distype gender timepoint},'model',3,'varnames',{'Disease Status','Gender','Time'},'display','off');
+a(:,3)=tbl2(:,7);
+a(1,3)={'Max Feret Diameter'};
+[p2,tbl2,stats2]=anovan(comb_mindiam,{distype gender timepoint},'model',3,'varnames',{'Disease Status','Gender','Time'},'display','off');
+a(:,4)=tbl2(:,7);
+a(1,4)={'Min Feret Diameter'};
+[p2,tbl2,stats2]=anovan(comb_emhyc,{distype gender timepoint},'model',3,'varnames',{'Disease Status','Gender','Time'},'display','off');
+a(:,5)=tbl2(:,7);
+a(1,5)={'EMHYC'};
+[p2,tbl2,stats2]=anovan(comb_density,{distype gender timepoint},'model',3,'varnames',{'Disease Status','Gender','Time'},'display','off');
+a(:,6)=tbl2(:,7);
+a(1,6)={'Density'};
+a(9:10,:)=[];
